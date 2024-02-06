@@ -38,7 +38,7 @@ const [isPending, setPending] = useState(true)
   }, [])
 
   return(
-    <View>
+    <View style={styles.container}>
       <Text style={{fontSize: 40}}>{count}</Text>
       <Button title='STOP' onPress={() => clearInterval(timerId)} />
     </View>
