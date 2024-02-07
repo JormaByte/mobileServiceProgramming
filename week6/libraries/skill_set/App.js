@@ -3,6 +3,7 @@ import Slider from '@react-native-community/slider'
 import { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-native-flex-grid';
 
+
 const SKILLS = ['Frontend', 'Backend', 'Mobile', 'Databases']
 const MIN = 0
 const MAX = 5
@@ -34,7 +35,27 @@ state variable  */
     setAverage(avg)
   }
 
-
+  const SliderContainer = ({index}) => {
+    return(
+      <Container fluid>
+        <Row>
+          <Col><Text>{MIN}</Text></Col>
+          <Col xs='9'>
+          <Slider
+            style={{width: 200, height: 40}}
+            minimumValue={0}
+            maximumValue={10}
+            step={1}
+            value={values[index]}
+            minimumTrackTintColor='#d10f0f'
+            maximumTrackTintColor='#ff9900'
+            onValueChange={(val) => setSkillValue(val, index)} />
+          </Col>
+          <Col><Text>{MAX}</Text></Col>
+        </Row>
+      </Container>
+    )
+  }
 
   
   const items = []
@@ -43,23 +64,7 @@ state variable  */
       <View key={'item' + i}>
         <Text>{SKILLS[i]}</Text>
         <Text>Skill: {values[i]}</Text>
-        <Container fluid>
-          <Row>
-            <Col><Text>{MIN}</Text></Col>
-            <Col xs='9'>
-            <Slider
-              style={{width: 200, height: 40}}
-              minimumValue={0}
-              maximumValue={10}
-              step={1}
-              value={values[i]}
-              minimumTrackTintColor='#d10f0f'
-              maximumTrackTintColor='#ff9900'
-              onValueChange={(val) => setSkillValue(val, i)} />
-            </Col>
-            <Col><Text>{MAX}</Text></Col>
-          </Row>
-        </Container>
+        <SliderContainer index={i} />
       </View>
     )
   }
