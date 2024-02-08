@@ -29,6 +29,10 @@ back from the function */
         }
     }
 
+/* 
+reads storage and set values to state variable. Then is used to read data as
+JSON and wait, that retrieving data is finished */
+
     const getData = async() => {
         try {
             return AsyncStorage.getItem(STORAGE_KEY)
