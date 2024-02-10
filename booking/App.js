@@ -5,16 +5,19 @@ import { Container, Row, Col } from 'react-native-flex-grid';
 import DateTimePicker from '@react-native-community/datetimepicker'
 
 
-const [date, setDate] = useState(new Date())
-const [startDate, setStartDate] = useState('')
-const [endDate, setEndDate] = useState('')
-const [startTime, setStartTime] = useState('')
-const [endTime, setEndTime] = useState('')
-const [status, setStatus] = useState('Pick start date & time')
-const [mode, setMode] = useState('date')
-const [show, setShow] = useState(false)
+
 
 export default function App() {
+
+  const [date, setDate] = useState(new Date())
+  const [startDate, setStartDate] = useState('')
+  const [endDate, setEndDate] = useState('')
+  const [startTime, setStartTime] = useState('')
+  const [endTime, setEndTime] = useState('')
+  const [status, setStatus] = useState('Pick start date & time')
+  const [mode, setMode] = useState('date')
+  const [show, setShow] = useState(false)
+
 
   const showMode = (currentMode) => {
     setShow(true)
@@ -40,7 +43,7 @@ the start date
 
 const isValidEndDay = (newDate) => {
   let start = startDate.split('.')
-  let end = endDate.split('.')
+  let end = newDate.split('.')
   if (parseInt(end[2]) < parseInt(start[1])) {
     return false
   }
@@ -58,8 +61,44 @@ const isValidEndDay = (newDate) => {
   }
 }
 
+/*
+isValidEndTime() uses the same practice for checking that daytime
+of the booking is after the start daytime. First start date and end date are
+compared. If those are the equal, daytimes are saved to correspondent state
+variables as strings using format hh:mm. JavaScript function split() is used
+to split daytime strings to two parts (hours, minutes) according to separator.
+Then hours and minutes will be compared in order to check that end daytime is
+not before the start daytime
+*/
 
+const isValidEndTime = (newTime) => {
+  if (startDate === endDate) {
+    let start = startTime.split('.')
+    let end = newTime.split('.')
+    if (parseInt(end[0]) < parseInt(start[0])) {
+      return false
+    }
+    else if (parseInt(end[0]) === parseInt(start[0]) &&
+    parseInt(end[1]) < parseInt(start[1])) {
+      return false
+    }
+    else if (parseInt(end[0]) === parseInt(start[0]) &&
+    parseInt(end[1]) <= parseInt(start[1])) {
+      return false
+    }
+    else {
+      return true
+    }
+  }
+}
 
+/*
+handleDate() takes selected timestamp as an argument. It formats
+the date to dd.MM.yyyy format. It checks if there is a start date. If not, start
+date will be assigned as the value of the correspondent state variable. In other
+case function isValidEndDay() is called, and if that function returns true, end
+date will be assigned as the value of the correspondent state variable
+*/
 
   return (
     <View style={styles.container}>
