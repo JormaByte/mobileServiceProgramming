@@ -182,7 +182,39 @@ const onChange = (event, selectedValue) => {
 
   return (
     <View style={styles.container}>
-      <Text>MOi</Text>
+      <Text style={styles.header}>Booking</Text>
+      <Text style={styles.time}>Starts: {startDate} {startTime}</Text>
+      <Text style={styles.time}>Ends: {endDate} {endTime}</Text>
+      <Text style={styles.time}>{status}</Text>
+      <Container fluid>
+        <Row>
+          <Col>
+          <View style={styles.picker}>
+            <Button onPress={showDatePicker} title='Pick date' />
+          </View>
+          {show && (
+            <DateTimePicker
+            testID='dateTimePicker'
+            value={date}
+            mode={mode}
+            is24Hour={true}
+            display='default'
+            onChange={onChange}
+            />
+          )}
+          </Col>
+          <Col>
+          <View style={styles.picker}>
+            <Button onPress={showTimePicker} title='Pick time' />
+          </View>
+          </Col>
+          <Col>
+          <View style={styles.picker}>
+            <Button onPress={clearAll} title='Clear' />
+          </View>
+          </Col>
+        </Row>
+      </Container>
     </View>
   );
 }
