@@ -100,6 +100,57 @@ case function isValidEndDay() is called, and if that function returns true, end
 date will be assigned as the value of the correspondent state variable
 */
 
+const handleDate = (current) => {
+  let newDate =
+  current.getDate() + '.' +
+  (current.getMonth() + 1) + '.' +
+  current.getFullYear()
+  if (startDate === '') {
+    setStartDate(newDate)
+  }
+  else {
+    if (isValidEndDay(newDate)) {
+      setEndDate(newDate)
+    }
+    else {
+      setStatus('Error: end is set before start.')
+    }
+  }
+}
+
+/*
+handleTime() uses the same practice for formatting the daytime. It
+takes selected timestamp as an argument, and formats the daytime to hh:mm
+format. It checks if there is a start daytime. If not, start daytime will be
+assigned as the value of the correspondent state variable. In other case
+function isValidEndTime() is called, and if that function returns true, end
+daytime will be assigned as the value of the correspondent state variable.
+*/
+
+const handleTime = (current) => {
+  let hours = current.getHours().toString()
+  let minutes = current.getMinutes().toString()
+  if (hours.length === 1) {
+    hours = '0' + minutes
+  }
+  if (minutes.length === 1) {
+    minutes = '0' + minutes
+  }
+  let newTime = hours + ':' + minutes 
+  if (startTime === '') {
+    setStartTime(newTime)
+    setStatus('Pick end day & time')
+  } else {
+    if (isValidEndTime(newTime)) {
+      setEndTime(newTime)
+      setStatus('Well done!')
+    } 
+    else {
+      setStatus('Error: end must be after start')
+    }
+  }
+}
+
   return (
     <View style={styles.container}>
 
