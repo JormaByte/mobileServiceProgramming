@@ -18,6 +18,23 @@ export default function App() {
   const [mode, setMode] = useState('date')
   const [show, setShow] = useState(false)
 
+  /*
+Event handler onChange() is mostly like the basic example of the GitHub page.
+Either handleDate() or handleTime() function is called according to the mode
+of the Datetimepicker
+*/
+
+const onChange = (event, selectedValue) => {
+  const current = selectedValue || date
+  setShow(Platform.OS === 'ios')
+  if (mode === 'date') {
+    handleDate(current)
+  } 
+  else {
+    handleTime(current)
+  }
+}
+
 
   const showMode = (currentMode) => {
     setShow(true)
@@ -42,9 +59,9 @@ the start date
 */
 
 const isValidEndDay = (newDate) => {
-  let start = startDate.split('.')
-  let end = newDate.split('.')
-  if (parseInt(end[2]) < parseInt(start[1])) {
+  let start = startDate.split('.');
+  let end = newDate.split('.');
+  if (parseInt(end[2]) < parseInt(start[2])) {
     return false
   }
   else if (parseInt(end[2]) === parseInt(start[2]) &&
@@ -79,16 +96,15 @@ const isValidEndTime = (newTime) => {
       return false
     }
     else if (parseInt(end[0]) === parseInt(start[0]) &&
-    parseInt(end[1]) < parseInt(start[1])) {
-      return false
-    }
-    else if (parseInt(end[0]) === parseInt(start[0]) &&
     parseInt(end[1]) <= parseInt(start[1])) {
       return false
     }
     else {
       return true
     }
+  }
+  else {
+    return true
   }
 }
 
@@ -131,7 +147,7 @@ const handleTime = (current) => {
   let hours = current.getHours().toString()
   let minutes = current.getMinutes().toString()
   if (hours.length === 1) {
-    hours = '0' + minutes
+    hours = '0' + hours
   }
   if (minutes.length === 1) {
     minutes = '0' + minutes
@@ -140,7 +156,8 @@ const handleTime = (current) => {
   if (startTime === '') {
     setStartTime(newTime)
     setStatus('Pick end day & time')
-  } else {
+  } 
+  else {
     if (isValidEndTime(newTime)) {
       setEndTime(newTime)
       setStatus('Well done!')
@@ -164,21 +181,6 @@ const clearAll = () => {
   setStatus('Pick start date & time')
 }
 
-/*
-Event handler onChange() is mostly like the basic example of the GitHub page.
-Either handleDate() or handleTime() function is called according to the mode
-of the Datetimepicker
-*/
-
-const onChange = (event, selectedValue) => {
-  const current = selectedValue || date
-  setShow(Platform.OS === 'ios')
-  if (mode === 'date') {
-    handleDate(current)
-  } else {
-    handleTime(current)
-  }
-}
 
   return (
     <View style={styles.container}>
