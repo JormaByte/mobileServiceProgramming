@@ -195,4 +195,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  header: {
+    marginTop: 50,
+    marginBottom: 10,
+    fontSize: 30
+  },
+  picker: {
+    marginTop: 30,
+    marginBottom: 30,
+    fontSize: 30
+  },
+  grid: {
+    marginLeft: 30,
+    marginRight: 30
+  },
+  time : {
+    marginTop: 10,
+    fontSize: 17
+  }
 });
