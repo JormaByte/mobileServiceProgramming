@@ -151,9 +151,38 @@ const handleTime = (current) => {
   }
 }
 
+
+/*
+ clearAll() clears all dates and daytimes, and updates the status text
+*/
+
+const clearAll = () => {
+  setStartDate('')
+  setEndDate('')
+  setStartTime('')
+  setEndTime('')
+  setStatus('Pick start date & time')
+}
+
+/*
+Event handler onChange() is mostly like the basic example of the GitHub page.
+Either handleDate() or handleTime() function is called according to the mode
+of the Datetimepicker
+*/
+
+const onChange = (event, selectedValue) => {
+  const current = selectedValue || date
+  setShow(Platform.OS === 'ios')
+  if (mode === 'date') {
+    handleDate(current)
+  } else {
+    handleTime(current)
+  }
+}
+
   return (
     <View style={styles.container}>
-
+      <Text>MOi</Text>
     </View>
   );
 }
