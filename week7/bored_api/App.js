@@ -61,7 +61,7 @@ background. JSON path is used to read the activity
     return (
       <View style={styles.container}>
         <Text style={styles.heading}>I'm so bored..</Text>
-        <Text style={styles.activity}>As a {type} type of activity {activity}.
+        <Text style={styles.activity}>As a {type} type of activity; {activity}.
         It takes {participants} participant(s) & {price === 0 ? ' does not cost anything.' : ' is probably quite cheap.'}
         </Text>
         <Button title='Refresh' onPress={() => getNewActivity()} />
@@ -78,4 +78,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  heading: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    paddingBottom: 50
+  },
+  activity: {
+    fontSize: 20,
+    padding: 20
+  }
 });
