@@ -74,19 +74,49 @@ coordinates in the second index of the markers state array
     return (
     <View style={styles.container}>
       <MapView
+        showsUserLocation={true}
         style={styles.map}
         initialRegion={{
-          latitude: latitude,
-          longitude: longitude,
+          // Checking if markers array is empty. If it isn't -> only then access location.
+          latitude: markers.length > 0 ? markers[0].latitude : 0,
+          longitude: markers.length > 0 ? markers[0].longitude : 0,
           latitudeDelta: INITIAL_LATITUDE_DELTA,
           longitudeDelta: INITIAL_LONGITUDE_DELTA
         }}
+
+        onPress={(event) => handleMarker(event.nativeEvent.coordinate, EVENT_TYPE_ADD)}
       >
-        <Marker title='testing' coordinate={{
-          latitude: latitude,
-          longitude: longitude
-        }}/>
-      </MapView>
+        {markers.map((location, index) => (
+          index == 0 ?
+            <Marker 
+              key={index}
+              coordinate={{
+                latitude: location.latitude,
+                longitude: location.longitude }} />
+          :
+            <Marker draggable
+              key={index}
+              onDragEnd={(event) => 
+              handleMarker(event.nativeEvent.coordinate, EVENT_TYPE_DRAG)}
+              title={'Another location'}
+              coordinate={{
+                latitude: location.latitude,
+                longitude: location.longitude }} />
+        ))}
+
+        {distance !== 0
+        ? <Text style={styles.bottom}>Distance: {distance} meters</Text>
+          : <Text style={styles.bottom}>{status}</Text>
+          }
+            </MapView>
+          
+          {markers.length > 1 && 
+          <Button
+          style={styles.button}
+          onPress={calculateDistance}
+          title='Calculate' />}
+  
+      
     </View>
     
   )}
@@ -107,6 +137,15 @@ const styles = StyleSheet.create({
   },
   map: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height - Constants.statusBarHeight
+    height: Dimensions.get('window').height - Constants.statusBarHeight -80,
+    marginTop: 10,
+    marginTop: 10
+  },
+  bottom: {
+    marginTop: 5,
+    marginBottom: 10
+  },
+  button: {
+    marginBottom: 10
   }
 });
