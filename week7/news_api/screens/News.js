@@ -6,7 +6,7 @@ const APIKEY = '9dbc1820587b46af88b1b42c799086ed'; //YOUR OWN API KEY HERE
 const criteria = 'top-headlines?country=us&ccategory=business'
 const address = URL + '/' + criteria + '&apikey=' + APIKEY
 
-export default function News() {
+export default function News({navigation}) {
 
     const [error, setError] = useState(null)
     const [isLoaded, setIsLoaded] = useState(false)
