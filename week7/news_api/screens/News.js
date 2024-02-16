@@ -2,7 +2,7 @@ import React, { useEffect, useState} from "react";
 import { StyleSheet, View, Text, Image, ScrollView, Pressable } from "react-native";
 
 const URL = 'https://newsapi.org/v2'
-const APIKEY = ''; //YOUR OWN API KEY HERE
+const APIKEY = '9dbc1820587b46af88b1b42c799086ed'; //YOUR OWN API KEY HERE
 const criteria = 'top-headlines?country=us&ccategory=business'
 const address = URL + '/' + criteria + '&apikey=' + APIKEY
 
@@ -37,7 +37,7 @@ export default function News() {
             </View>
         )
     } 
-    else if (isLoaded) {
+    else if (!isLoaded) {
         return (
             <View style={styles.container}>
                 <Text>Loading...</Text>
