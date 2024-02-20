@@ -1,4 +1,4 @@
-import { Button, Text, TextInput, View } from 'react-native';
+import { Alert, Button, Text, TextInput, View } from 'react-native';
 import styles from './styles/style'
 import { QuerySnapshot, addDoc, collection, deleteDoc,
 doc, getDocs, onSnapshot, orderBy, query } from 'firebase/firestore';
@@ -61,6 +61,45 @@ classes)
  */
   let todosKeys = Object.keys(todos)
 
+  /**
+   * removeTodo() removes single todo from the collection. Id of the todo
+is passed as an argument to the function and deleteDoc() function is used for
+removing todo from the todos collection
+   */
+
+  const removeTodo = async (id) => {
+    try {
+      await deleteDoc(doc (db, TODOS_REF, id))
+    }
+    catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  /**
+   * removeTodos() removes all todo items from the database. Cloud
+Firestore does not allow deleting all documents of the collection by once. That is
+why each todo will be deleted separately. Reference of todo (id) is passed as an
+argument to removeTodo() function.
+   */
+
+  const removeTodos = async() => {
+    try {
+      const querySnapshot = await getDocs(collection(db, TODOS_REF))
+      querySnapshot.forEach((todo) => {
+        removeTodo(todo.id)
+      })
+    }
+    catch (error) {
+      console.log(error.message);
+    }
+  }
+/** 
+ * createTwoButtonAlert() shows an Alert dialog including two options.
+Either to accept removal of all items or cancel removal
+*/
+
+  const createTwoButtonAlert = () => Alert.alert()
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Todo list ({todosKeys.length}) </Text>
