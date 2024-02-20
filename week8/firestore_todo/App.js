@@ -99,7 +99,17 @@ argument to removeTodo() function.
 Either to accept removal of all items or cancel removal
 */
 
-  const createTwoButtonAlert = () => Alert.alert()
+  const createTwoButtonAlert = () => Alert.alert(
+    'Todolist', 'Remove all items?', [{
+      text: 'Cancel',
+      onPress: () => console.log('Removal cancelled'),
+      style: 'cancel'
+    },
+  {
+    text: 'OK', onPress: () => removeTodos()
+  }],
+  {cancelable: false}
+  )
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Todo list ({todosKeys.length}) </Text>
