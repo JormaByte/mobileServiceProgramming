@@ -1,11 +1,38 @@
 
 import { Text, View } from 'react-native';
 import styles from './styles/style'
-import { addDoc, collection, deleteDoc,
+import { QuerySnapshot, addDoc, collection, deleteDoc,
 doc, getDocs, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { db, TODOS_REF } from './firebase/Config'
+import { useEffect, useState } from 'react';
 
 export default function App() {
+
+  const [newTodo, setNewTodo] = useState('')
+  const [todos, setTodos] = useState([])
+
+  /*
+  useEffect() hook as follows. It makes query of the collection from the
+database using query() and collection() functions. By default query returns
+documents from the todos collection in ascending order by the document id. In
+this example order is set as ascending order by todoItem. First query will be
+made from the collection and orderBy() function is used for setting the order.
+Function onSnapshot() handles the results of the query. The result is called
+snapshot. Inside the iteration of the snapshot, spread operator is used for
+setting the data to the state variable that is an array of objects. This way there
+is no need to set individual values (todoItem, done) separately.
+  */
+
+  useEffect(() => {
+    const q = query(collection(db, TODOS_REF), orderBy('todoitem'))
+    onSnapshot(q, (QuerySnapshot) => {
+      setTodos(QuerySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })))
+    })
+  }, [])
+
   return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
