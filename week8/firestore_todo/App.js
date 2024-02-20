@@ -1,4 +1,3 @@
-
 import { Text, View } from 'react-native';
 import styles from './styles/style'
 import { QuerySnapshot, addDoc, collection, deleteDoc,
@@ -32,6 +31,29 @@ is no need to set individual values (todoItem, done) separately.
       })))
     })
   }, [])
+
+  /*
+  addNewTodo() adds new todo item to the database if todo field is not
+empty. Function addDoc() is used for adding document to the todos collection.
+Item has two keys (done and todoItem) and together with values those are
+key-value pairs that will be added to Firebase database after successful
+operation. If operation is successful, state variable for new todo is set as empty
+string
+  */
+  const addNewTodo = async () => {
+    try {
+      if (newTodo.trim() !== '') {
+        await addDoc(collection(db, TODOS_REF), {
+          done: false,
+          todoItem: newTodo
+        })
+        setNewTodo('')
+      }
+    }
+    catch (error) {
+      console.log(error.message);
+    }
+  }
 
   return (
     <View style={styles.container}>
