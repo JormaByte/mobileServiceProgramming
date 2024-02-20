@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { Button, Text, TextInput, View } from 'react-native';
 import styles from './styles/style'
 import { QuerySnapshot, addDoc, collection, deleteDoc,
 doc, getDocs, onSnapshot, orderBy, query } from 'firebase/firestore';
@@ -54,10 +54,29 @@ string
       console.log(error.message);
     }
   }
+/**
+Keys of all todo items are
+assigned to an array using keys() function of the Object class (parent of all
+classes)
+ */
+  let todosKeys = Object.keys(todos)
 
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text style={styles.header}>Todo list ({todosKeys.length}) </Text>
+      <View style={styles.newItem}>
+        <TextInput
+          placeholder='Add new todo'
+          value={newTodo}
+          style={styles.textInput}
+          onChangeText={setNewTodo}
+        />
+      </View>
+      <View style={styles.buttonStyle}>
+        <Button 
+        title='Add new Todo item'
+        onPress={() => addNewTodo()}/>
+      </View>
     </View>
   );
 }
