@@ -126,6 +126,11 @@ Either to accept removal of all items or cancel removal
         title='Add new Todo item'
         onPress={() => addNewTodo()}/>
       </View>
+      <View style={styles.buttonStyle}>
+        <Button
+        title='Remove all todos'
+        onPress={() => createTwoButtonAlert()} />
+      </View>
     </View>
   );
 }
