@@ -5,17 +5,14 @@ import { TextInput } from 'react-native-paper';
 import { useState } from 'react';
 import { Footer } from './Footer';
 import { NavigationContainer } from '@react-navigation/native';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import {
     NBR_OF_DICES,
     NBR_OF_THROWS,
     MIN_SPOT,
     MAX_SPOT,
     BONUS_POINTS_LIMIT,
-    BONUS_POINTS}
-    from '../constants/Game'
-
-
-
+    BONUS_POINTS } from '../constants/Game'
 
 export default Home = ({navigation}) => {
 
