@@ -1,6 +1,6 @@
 
 import { Header } from './Header';
-import { Pressable, View, Text } from 'react-native';
+import { Pressable, View, Text, Keyboard } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { useState } from 'react';
 import { Footer } from './Footer';

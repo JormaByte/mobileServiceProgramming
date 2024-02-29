@@ -1,10 +1,9 @@
 import styles from './styles/Style'
 import { Header } from './components/Header';
-import Gameboard  from './components/Gameboard';
-import { Scoreboard } from './components/Scoreboard'
+import Gameboard from './components/Gameboard';
+import Scoreboard from './components/Scoreboard'
 import Home from './components/Home';
-import { Footer} from './components/Footer'
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Footer } from './components/Footer'
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'

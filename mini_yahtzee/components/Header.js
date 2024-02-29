@@ -5,7 +5,7 @@ export const Header = () => {
     return(
         <View style={styles.header}>
             <Text style={styles.title}>
-                Mini-Yahtzee by Jorma
+                Mini-Yahtzee!
             </Text>
         </View>
     )

@@ -2,12 +2,18 @@ import React from "react";
 import { Text, View } from "react-native";
 import styles from '../styles/Style'
 
-export function Scoreboard() {
+export default Scoreboard = () => {
     return(
+        <>
         <View style={styles.header}>
             <Text style={styles.title}>
-                scoreboard is heere
+                scoreboard
             </Text>
         </View>
+        <View>
+            <Text>The scoreboarrd is not functional at the moment..</Text>
+        </View>
+            </>       
+
     )
 }

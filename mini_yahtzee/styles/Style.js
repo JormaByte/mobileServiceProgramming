@@ -3,17 +3,17 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: 'grey'
   },
   header: {
     marginTop: 30,
     marginBottom: 15,
-    backgroundColor: 'skyblue',
+    backgroundColor: 'pink',
     flexDirection: 'row',
   },
   footer: {
-    marginTop: 200,
-    backgroundColor: 'skyblue',
+    marginTop: 50,
+    backgroundColor: 'pink',
     flexDirection: 'row'
   },
   title: {
@@ -33,7 +33,7 @@ export default StyleSheet.create({
     margin: 10,
   },
   gameboard: {
-    backgroundColor: '#fff',
+    backgroundColor: 'gray',
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -46,16 +46,16 @@ export default StyleSheet.create({
   },
   row: {
     marginTop: 20,
-    padding: 10
+    
   },
   flex: {
     flexDirection: "row"
   },
   button: {
-    margin: 30,
+    margin: 10,
     flexDirection: "row",
-    padding: 10,
-    backgroundColor: "#73CED6",
+    padding: 5,
+    backgroundColor: "pink",
     width: 150,
     borderRadius: 15,
     justifyContent: 'center',
