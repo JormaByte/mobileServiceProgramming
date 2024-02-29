@@ -12,7 +12,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   footer: {
-    marginTop: 20,
+    marginTop: 200,
     backgroundColor: 'skyblue',
     flexDirection: 'row'
   },
