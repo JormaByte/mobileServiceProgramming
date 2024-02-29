@@ -1,37 +1,57 @@
 import { useState, useEffect } from "react";
-import { Text, View, Pressable } from "react-native";
+import { Text, View, Pressable, Container, Row } from "react-native";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
-import styles from './styles/style'
+import styles from '../styles/Style'
+import { Header } from "./Header";
+import { Footer } from "./Footer"
+import {
+  NBR_OF_DICES,
+  NBR_OF_THROWS,
+  MIN_SPOT,
+  MAX_SPOT,
+  BONUS_POINTS_LIMIT,
+  BONUS_POINTS}
+  from '../constants/Game'
+
+
 
 let board = [];
-const NBR_OF_DICES = 5;
-const NBR_OF_THROWS = 5;
 
-export default function Gameboard() {
 
+export default Gameboard = ({ navigation, route}) => {
+
+  const [playerName, setPlayerName] = useState('')
   const [nbrOfThrowsLeft, setNbrOfThrowsLeft] = useState(NBR_OF_THROWS);
   const [status, setStatus] = useState('');
-  const [selectedDices, setSelectedDices] = 
-    useState(new Array(NBR_OF_DICES).fill(false));
+  const [gameEndStatus, setGameEndStatus] = useState(false)
+  const [selectedDices, setSelectedDices] = useState(new Array(NBR_OF_DICES).fill(false));
+  const [diceSpots, setDiceSpots] = useState(new Array(NBR_OF_DICES).fill(0));
+  const [selectedDicePoints, setSelectedDicePoints] = useState(new Array(MAX_SPOT).fill(false))
+  const [dicePointsTotal, setDicePointsTotal] = useState(new Array(MAX_SPOT).fill(0))
 
-  const Dice = ({index}) => {
-    return(
-      <Pressable 
-        key={"row" + index}
-        onPress={() => selectDice(index)}>
-        <MaterialCommunityIcons
-          name={board[index]}
-          key={"row" + index}
-          size={50} 
-          color={getDiceColor(index)}>
-        </MaterialCommunityIcons>
-      </Pressable>
-    )
+useEffect(() => {
+  if (playerName === '' && route.params.player) {
+    setPlayerName(route.params.player)
   }
+}, [])
 
-  const row = [];
-  for (let i = 0; i < NBR_OF_DICES; i++) {
-    row.push(<Dice key={i} index={i} />);
+
+
+  const DicesRow = [];
+  for (let dice = 0; dice < NBR_OF_DICES; dice++) {
+    DicesRow.push(
+      <Pressable 
+      key={"dice" + dice}
+      onPress={() => selectDice(i)}>
+      <MaterialCommunityIcons
+        name={board[dice]}
+        key={"dice" + dice}
+        size={50} 
+        color={getDiceColor(dice)}>
+      </MaterialCommunityIcons>
+    </Pressable>
+    );
+
   }
 
   useEffect(() => {
@@ -45,19 +65,20 @@ export default function Gameboard() {
   }, [nbrOfThrowsLeft]);
 
   function getDiceColor(i) {
-    if (board.every((val, i, arr) => val === arr[0])) {
-      return "orange";
-    }
-    else {
+
       return selectedDices[i] ? "black" : "steelblue";
-    }
+
   }
 
   const selectDice = (i) => {
+    if (nbrOfThrowsLeft < NBR_OF_THROWS && !gameEndStatus) {
     let dices = [...selectedDices];
     dices[i] = selectedDices[i] ? false : true;
     setSelectedDices(dices);
   }
+    else{
+      setStatus('Throw please')
+    }}
 
   const checkWinner = () => {
     if (board.every((val, i, arr) => val === arr[0]) && nbrOfThrowsLeft > 0) {
@@ -87,16 +108,16 @@ export default function Gameboard() {
   }
   
   return(
+    <>
+    <Header />
     <View style={styles.gameboard}>
-      <View style={styles.flex}>{row}</View>
-      <Text style={styles.gameinfo}>Throws left: {nbrOfThrowsLeft}</Text>
-      <Text style={styles.gameinfo}>{status}</Text>
-      <Pressable style={styles.button}
-        onPress={() => throwDices()}>
-          <Text style={styles.buttonText}>
-            Throw dices
-          </Text>
+      <Container fluid>
+        <Row>{DicesRow}</Row>
+      </Container>
+      <Pressable style={styles.button}>
+
       </Pressable>
     </View>
+    </>
   )
 }
